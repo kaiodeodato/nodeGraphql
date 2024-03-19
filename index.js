@@ -1,5 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import { makeExecutableSchema } from '@graphql-tools/schema';
+
 import { mongoose, Schema, model } from 'mongoose';
 import 'dotenv/config'
 
@@ -42,6 +44,7 @@ const startServer = async () => {
     const Author = model('Author', authorSchema, 'my_authors_collection');
     const Publisher = model('Publisher', publisherSchema, 'my_publishers_collection');
 
+    // what is the shape
     const typeDefs = `
       type Book {
         title: String
@@ -65,7 +68,7 @@ const startServer = async () => {
         publishers: [Publisher]
       }
     `;
-
+    // how data is fetched
     const resolvers = {
         Query: {
           books: async () => {
@@ -122,10 +125,10 @@ const startServer = async () => {
           },
         },
       };
+    const schema = makeExecutableSchema({ typeDefs, resolvers });
 
     const server = new ApolloServer({
-      typeDefs,
-      resolvers,
+      schema
     });
 
     const { url } = await startStandaloneServer(server, {

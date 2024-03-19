@@ -1,0 +1,62 @@
+query run {
+  books{
+    title
+  }
+}
+
+query run {
+  publishers{
+    company
+  }
+}
+
+query run {
+  authors{
+    name
+  }
+}
+
+query run {
+  books{
+    title
+    author{
+      name
+    }
+  }
+}
+
+query run {
+  books{
+    title
+    author{
+      name
+      booksByAuthor{
+        title
+      }
+    }
+  }
+}
+
+query run {
+  books{
+    title
+    publisher{
+      company
+    }
+    author{
+      name
+      booksByAuthor{
+        title
+      }
+    }
+  }
+}
+
+query run {
+  publishers{
+    company
+    booksByPublisher{
+      title
+    }
+  }
+}
