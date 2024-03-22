@@ -1,5 +1,4 @@
-export const typeDefs = `
-  type Book {
+ type Book {
     title: String
     author: [Author]
     publisher: Publisher
@@ -25,5 +24,3 @@ export const typeDefs = `
   type Photos {
     imageUrl: String
   }
-`;
-export default typeDefs;
