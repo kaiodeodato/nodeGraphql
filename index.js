@@ -7,10 +7,7 @@ import 'dotenv/config'
 
 const startServer = async () => {
   try {
-    await mongoose.connect(process.env.SECRET_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    await mongoose.connect(process.env.SECRET_URL);
 
     const bookSchema = new Schema({
       title: String,
