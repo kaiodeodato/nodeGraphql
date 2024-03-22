@@ -1,9 +1,9 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { makeExecutableSchema } from '@graphql-tools/schema';
-import typeDefs from '../graphql/typedefs.js';
-import resolvers from './resolvers/resolvers.js';
-import connectToDatabase from '../db/index.js';
+import typeDefs from './graphql/typedefs.js';
+import resolvers from './server/resolvers/resolvers.js';
+import connectToDatabase from './db/index.js';
 
 const startServer = async () => {
   try {
