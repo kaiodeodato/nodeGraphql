@@ -4,6 +4,8 @@ import { makeExecutableSchema } from '@graphql-tools/schema';
 import typeDefs from './graphql/typedefs.js';
 import resolvers from './server/resolvers/resolvers.js';
 import connectToDatabase from './db/index.js';
+import express from 'express'; 
+import cors from 'cors';
 
 const startServer = async () => {
   try {
@@ -18,6 +20,13 @@ const startServer = async () => {
     const server = new ApolloServer({
       schema
     });
+
+    const app = express();
+
+    app.use(cors({
+      origin: '*',
+      methods: 'GET,POST',
+    }));
 
     const { url } = await startStandaloneServer(server, {
       listen: { port: 4000 },
