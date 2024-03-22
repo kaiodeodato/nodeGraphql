@@ -4,9 +4,32 @@ import Publisher from '../models/publisherModel.js';
 
 const bookResolver = {
   Query: {
-    books: async () => {
-      const books = await Book.find();
-      return books;
+    books: async (_, { limit, order }) => {
+      try {
+       let books;
+       if(order === 'ASC'){
+          if(limit){
+              books = await Book.find().sort({ title: 1 }).limit(limit);
+          }else {
+              books = await Book.find().sort({ title: 1 });
+          }
+       }else if (order === 'DESC'){
+          if(limit){
+              books = await Book.find().sort({ title: -1 }).limit(limit);
+          }else {
+              books = await Book.find().sort({ title: -1 });
+          }
+       } else {
+          if(limit){
+              books = Book.find().limit(limit);
+          }else {
+              books = Book.find();
+          }
+       }
+       return books;
+      } catch (error) {
+        throw new Error(`Failed to fetch books: ${error.message}`);
+      }
     },
   },
   Book: {

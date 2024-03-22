@@ -3,10 +3,19 @@ import Book from '../models/bookModel.js';
 
 const publisherResolver = {
   Query: {
-    publishers: async () => {
-      const publishers = await Publisher.find();
-      return publishers;
-    },
+    publishers: async (_, { filter }) => {
+      try {
+        let publishers;
+        if (filter){
+          publishers = await Publisher.find({ company: { $regex: filter, $options: 'i' } });
+        } else {
+          publishers = await Publisher.find();
+        }
+        return publishers;
+      } catch {
+        throw new Error(`Failed to fetch publishers: ${error.message}`);
+      }
+    }
   },
   Publisher: {
     booksByPublisher: async (parent) => {

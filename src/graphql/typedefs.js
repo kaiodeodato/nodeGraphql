@@ -16,14 +16,16 @@ export const typeDefs = `
   }
 
   type Query {
-    books: [Book]
-    authors: [Author]
-    publishers: [Publisher]
-    photos: [Photos]
+    books(limit: Int, order: String): [Book]
+    authors(limit: Int): [Author]
+    publishers(filter: String): [Publisher]
+    photos(limit: Int): [Photos]
   }
 
   type Photos {
     imageUrl: String
   }
+
 `;
+
 export default typeDefs;
