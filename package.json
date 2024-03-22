@@ -2,10 +2,10 @@
   "name": "ninjagraphql",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/server/index.js",
   "scripts": {
     "prestart": "npm install",
-    "start": "node index.js"
+    "start": "node src/server/index.js"
   },
   "keywords": [],
   "author": "",
