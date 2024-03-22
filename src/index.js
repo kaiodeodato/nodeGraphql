@@ -1,32 +1,18 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { makeExecutableSchema } from '@graphql-tools/schema';
 import typeDefs from './graphql/typedefs.js';
 import resolvers from './server/resolvers/resolvers.js';
 import connectToDatabase from './db/index.js';
-import express from 'express'; 
-import cors from 'cors';
 
 const startServer = async () => {
   try {
     await connectToDatabase();
 
-    const schema = makeExecutableSchema({
+    const server = new ApolloServer({
       typeDefs,
       resolvers,
-      introspection: true, // Habilitar a introspecção para permitir que o Apollo Sandbox leia seu schema
+      introspection: true,
     });
-
-    const server = new ApolloServer({
-      schema
-    });
-
-    const app = express();
-
-    app.use(cors({
-      origin: '*',
-      methods: 'GET,POST',
-    }));
 
     const { url } = await startStandaloneServer(server, {
       listen: { port: 4000 },
