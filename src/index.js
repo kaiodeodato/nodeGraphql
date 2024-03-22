@@ -9,7 +9,11 @@ const startServer = async () => {
   try {
     await connectToDatabase();
 
-    const schema = makeExecutableSchema({ typeDefs, resolvers });
+    const schema = makeExecutableSchema({
+      typeDefs,
+      resolvers,
+      introspection: true, // Habilitar a introspecção para permitir que o Apollo Sandbox leia seu schema
+    });
 
     const server = new ApolloServer({
       schema
